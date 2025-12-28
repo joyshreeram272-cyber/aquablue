@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aquablue Fish Farm | Ashim Sarkar <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0056b3">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/2970/2970068.png">
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('App Registered!', reg))
+                    .catch(err => console.log('App Registration Failed', err));
+            });
+        }
+    </script></title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root { --primary: #0056b3; --secondary: #00a8cc; --accent: #ff9800; --dark: #333; --wa: #25D366; --fb: #1877F2; --yt: #FF0000; --ig: #E1306C; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            color: var(--dark); 
+            line-height: 1.6;
+            background-color: #e0f7fa;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M54.62 9.81c-4.04 0-7.62-.67-10.74-2.25-2.2-1.12-4.03-2.63-5.55-4.52C36.6 6.04 32.73 8 28.66 8c-3.7 0-7.23-1.63-9.98-4.32-.23.1-.47.18-.7.27C15.8 5.6 13.5 6.73 11 6.73c-3.87 0-7.2-2.73-8.8-6.73C1.3 2.1.62 4.26.2 6.5c-3.23 2.37-5.5 5.86-6.18 9.87l.22.04c.05 0 .1.02.15.02 4.14 0 7.8 1.9 10.15 4.9 2.58-2.65 6.13-4.3 10.06-4.3 3.4 0 6.53 1.22 8.97 3.25 2.1-3.66 6.05-6.13 10.58-6.13 6.04 0 11.08 4.28 12.23 10l.13-.02c.85-.14 1.7-.2 2.58-.2 5.16 0 9.88 2.3 13.06 6l-.63.78c-2.93-3.4-7.25-5.53-12-5.53-4.14 0-7.85 1.7-10.6 4.47-2.6-2.58-6.16-4.16-10.08-4.16-4.06 0-7.75 1.7-10.4 4.38-2.5-2.9-6.3-4.73-10.52-4.73-5.4 0-10.1 3-12.55 7.48C4.54 36.2 9.6 40 15.5 40c4.14 0 7.85-1.7 10.6-4.47 2.6 2.58 6.16 4.16 10.08 4.16 4.06 0 7.75-1.7 10.4-4.38 2.5 2.9 6.3 4.73 10.52 4.73 2.62 0 5.1-.7 7.27-1.95 2.86 3.1 6.94 5.06 11.47 5.06 1.48 0 2.92-.2 4.3-.58l.18 1c-1.46.4-3 .6-4.57.6-4.8 0-9.1-2.07-12.16-5.35-2.5 1.42-5.36 2.23-8.4 2.23-5.4 0-10.1-3-12.55-7.48-2.6 2.37-6.04 3.8-9.82 3.8-4.06 0-7.75-1.7-10.4-4.38-2.5 2.9-6.3 4.73-10.52 4.73-5.4 0-10.1-3-12.55-7.48zM15.5 6c-3.78 0-7.23 1.25-9.98 3.36.23-.1.47-.18.7-.27C7.78 5.3 11.66 6 15.5 6z' fill='%230056b3' fill-opacity='0.04' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+
+        a { text-decoration: none; transition: 0.3s; }
+        
+        /* TOP BAR */
+        .top-bar { background: #001529; color: white; padding: 12px 0; font-size: 0.85rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .top-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; flex-wrap: wrap; gap: 10px; }
+        .top-info { display: flex; align-items: center; gap: 15px; flex-wrap: wrap; }
+        .top-social { display: flex; gap: 10px; }
+        .header-social-btn { padding: 4px 12px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; display: inline-flex; align-items: center; gap: 5px; color: white; }
+        .header-fb { background: var(--fb); } .header-fb:hover { background: #145dbf; }
+        .header-yt { background: var(--yt); } .header-yt:hover { background: #cc0000; }
+        .header-ig { background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d); } 
+        .header-ig:hover { opacity: 0.9; }
+
+        /* TRANSLATE WIDGET */
+        #google_translate_element { margin-left: 15px; }
+        .goog-te-gadget-simple { background-color: rgba(255,255,255,0.1) !important; border: 1px solid rgba(255,255,255,0.3) !important; padding: 4px 8px !important; border-radius: 4px; }
+        .goog-te-gadget-simple span { color: white !important; font-weight: bold; }
+        .goog-te-menu-value span { color: white !important; }
+        .goog-te-gadget-icon { display: none !important; }
+
+        /* Navbar */
+        nav { background: white; padding: 15px 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 15px rgba(0, 86, 179, 0.1); }
+        .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary); display: flex; align-items: center; }
+        .logo img { height: 80px; margin-right: 12px; } 
+        .nav-menu { display: flex; align-items: center; }
+        .nav-menu a { margin-left: 20px; color: var(--dark); font-weight: 500; cursor: pointer; }
+        .nav-menu a:hover { color: var(--accent); }
+        
+        /* CART ICON */
+        .cart-icon-box { position: relative; cursor: pointer; margin-left: 20px; }
+        .cart-count { position: absolute; top: -8px; right: -8px; background: #d32f2f; color: white; font-size: 0.7rem; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+
+        /* SCROLLING MARQUEE */
+        .marquee-bar { background: #002244; color: white; padding: 8px 0; font-weight: bold; font-size: 0.9rem; border-top: 1px solid rgba(255,255,255,0.1); }
+
+        /* --- HERO SLIDER STYLE --- */
+        .hero-container { position: relative; max-width: 100%; margin: auto; overflow: hidden; }
+        .hero-slide { display: none; padding: 100px 20px; text-align: center; color: white; position: relative; height: 500px; display: flex; flex-direction: column; justify-content: center; align-items: center; background-size: cover; background-position: center; }
+        
+        .slide-1 { background: linear-gradient(135deg, #021B79, #0575E6); }
+        .slide-2 { background: linear-gradient(135deg, #1A2980, #26D0CE); }
+        .slide-3 { background: linear-gradient(135deg, #FF512F, #DD2476); }
+
+        .hero-slide h1 { font-size: 3.5rem; line-height: 1.2; margin-bottom: 15px; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+        .hero-slide h2 { font-size: 1.5rem; font-weight: 300; margin-bottom: 20px; color: #e0f7fa; }
+        
+        .btn-orange { background: var(--accent); padding: 15px 40px; border-radius: 50px; font-weight: bold; color: white; display: inline-block; margin-top: 20px; font-size: 1.2rem; box-shadow: 0 10px 20px rgba(0,0,0,0.3); border: 2px solid white; cursor: pointer; }
+        .btn-orange:hover { background: #e68900; }
+
+        .hero-badge { background: #ff4757; color: white; padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 0.9rem; margin-bottom: 15px; display: inline-block; animation: pulse 2s infinite; }
+        
+        .slider-dots { text-align: center; position: absolute; bottom: 40px; width: 100%; z-index: 10; }
+        .dot { cursor: pointer; height: 12px; width: 12px; margin: 0 5px; background-color: rgba(255,255,255,0.5); border-radius: 50%; display: inline-block; transition: background-color 0.6s ease; }
+        .dot.active, .dot:hover { background-color: #ffd700; }
+
+        .fade { animation-name: fade; animation-duration: 1.5s; }
+        @keyframes fade { from {opacity: .4} to {opacity: 1} }
+
+        .wave-bottom { position: absolute; bottom: 0; left: 0; width: 100%; overflow: hidden; line-height: 0; z-index: 5; }
+        .wave-bottom svg { position: relative; display: block; width: calc(100% + 1.3px); height: 80px; }
+        .wave-fill { fill: #e0f7fa; } 
+        
+        /* STORY SECTION */
+        .story-section { background: white; padding: 50px 20px; text-align: center; border-bottom: 1px solid #ddd; }
+        .story-container { max-width: 900px; margin: 0 auto; background: #fff; border-radius: 15px; padding: 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        .story-content h2 { color: var(--primary); margin-bottom: 15px; }
+        .story-content p { color: #555; line-height: 1.8; font-size: 1.1rem; }
+
+        /* SCHEMES SECTION */
+        .schemes-section { background: #f4f8fb; padding: 60px 20px; text-align: center; }
+        .schemes-container { max-width: 1000px; margin: 0 auto; }
+        .schemes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 30px; }
+        .scheme-card { background: white; padding: 25px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-top: 5px solid var(--primary); transition: transform 0.3s; }
+        .scheme-card:hover { transform: translateY(-5px); }
+        .scheme-card h3 { color: #002244; margin-bottom: 10px; font-size: 1.4rem; }
+        .scheme-card p { font-size: 0.9rem; color: #666; margin-bottom: 20px; min-height: 60px; }
+        .btn-scheme { display: inline-block; padding: 10px 20px; background: var(--secondary); color: white; border-radius: 5px; font-weight: bold; font-size: 0.9rem; text-decoration: none; }
+        .btn-scheme:hover { background: #008cba; }
+        
+        /* STATE TABLE MODAL */
+        .state-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        .state-table th { background: #002244; color: white; padding: 12px; text-align: left; }
+        .state-table td { padding: 12px; border-bottom: 1px solid #ddd; text-align: left; }
+        .state-table tr:hover { background: #f1f1f1; }
+        .state-link { color: var(--primary); font-weight: bold; text-decoration: none; }
+        .state-link:hover { text-decoration: underline; }
+
+        /* SELL FISH SECTION */
+        .sell-section { background: #e8f5e9; padding: 60px 20px; text-align: center; }
+        .sell-container { max-width: 700px; margin: 0 auto; background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .sell-form { display: flex; flex-direction: column; gap: 15px; text-align: left; }
+        .sell-form label { font-weight: bold; color: #333; }
+        .sell-input { padding: 12px; border: 1px solid #ccc; border-radius: 5px; font-size: 1rem; }
+        .btn-sell { background: #2e7d32; color: white; padding: 15px; border: none; border-radius: 5px; font-weight: bold; font-size: 1.1rem; cursor: pointer; margin-top: 10px; }
+        .btn-sell:hover { background: #1b5e20; }
+
+        /* CALCULATOR SECTION */
+        .calc-section { background: #e3f2fd; padding: 50px 20px; text-align: center; }
+        .calc-box { max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .calc-input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; }
+        .calc-result { background: #e8f5e9; padding: 15px; border-radius: 5px; margin-top: 15px; font-weight: bold; color: #2e7d32; display: none; }
+
+        /* STATS SECTION */
+        .stats-section { background: #003366; color: white; padding: 20px 0; }
+        .stats-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; text-align: center; padding: 0 20px; }
+        .stat-item { padding: 15px; border-right: 1px solid rgba(255,255,255,0.1); }
+        .stat-item:last-child { border-right: none; }
+        .stat-number { font-size: 2rem; font-weight: 800; color: #ffd700; display: block; }
+        .stat-label { font-size: 0.9rem; opacity: 0.9; }
+
+        /* Search */
+        .search-container { margin: 40px auto 40px; max-width: 600px; padding: 0 20px; position: relative; z-index: 2; }
+        .search-box { width: 100%; padding: 20px; border-radius: 50px; border: 4px solid white; box-shadow: 0 10px 25px rgba(0, 86, 179, 0.2); font-size: 1.1rem; outline: none; text-align: center; }
+        
+        /* PRODUCT BANNER THEME */
+        .product-banner {
+            background: linear-gradient(135deg, #001529, #004e92); /* Deep Ocean */
+            color: white;
+            padding: 80px 20px;
+            margin-top: 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+            border: 3px solid #00a8cc;
+        }
+        .product-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 10%, transparent 10%);
+            background-size: 30px 30px;
+            opacity: 0.3;
+            transform: rotate(30deg);
+            pointer-events: none;
+        }
+        .product-banner h2 { color: #ffd700; text-shadow: 0 2px 4px rgba(0,0,0,0.5); font-size: 2.5rem; margin-bottom: 10px; }
+        .product-banner p { color: #e0f7fa; font-size: 1.2rem; opacity: 0.9; }
+
+        /* Content & Cards */
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+        .section-title { text-align: center; margin-bottom: 40px; color: var(--primary); font-size: 2.2rem; font-weight: 700; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.05); text-align: center; border: 1px solid rgba(0,0,0,0.05); height: 100%; display: flex; flex-direction: column; transition: transform 0.3s; position: relative; }
+        .card:hover { transform: translateY(-5px); }
+        .card img { width: 100%; height: 200px; object-fit: cover; background: #eee; cursor: pointer; }
+        .card-body { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .card h3 { margin-bottom: 5px; color: var(--dark); font-size: 1.25rem; }
+        .card p { font-size: 0.9rem; color: #666; margin-bottom: 15px; line-height: 1.4; }
+        .badge { background: #e0f7fa; color: #006064; padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; display: inline-block; margin-bottom: 10px; }
+        
+        /* PRODUCT SELECTION INPUTS */
+        .prod-select-box { display: flex; gap: 5px; margin-bottom: 10px; justify-content: center; }
+        .size-select, .qty-input { padding: 8px; border: 1px solid #ddd; border-radius: 5px; width: 50%; font-size: 0.85rem; }
+        .add-btn { width: 100%; background: var(--secondary); color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer; font-weight: bold; margin-bottom: 5px; }
+        .add-btn:hover { background: #008cba; }
+
+        /* BADGES */
+        .badge-best { position: absolute; top: 10px; right: 10px; background: #ff4757; color: white; padding: 5px 12px; border-radius: 20px; font-weight: bold; font-size: 0.75rem; box-shadow: 0 2px 5px rgba(0,0,0,0.2); animation: pulse 2s infinite; }
+        .badge-demand { position: absolute; top: 10px; left: 10px; background: #ff9800; color: white; padding: 5px 12px; border-radius: 20px; font-weight: bold; font-size: 0.75rem; box-shadow: 0 2px 5px rgba(0,0,0,0.2); z-index: 2; }
+
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+
+        /* MODALS (Shared Style) */
+        .modal, .prod-modal, .blog-modal { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); align-items: center; justify-content: center; backdrop-filter: blur(5px); }
+        .modal-content, .prod-content, .blog-content-box, .admin-modal-box { background-color: white; border-radius: 15px; width: 90%; max-width: 800px; position: relative; animation: slideUp 0.3s ease; max-height: 90vh; overflow-y: auto; }
+        .close-btn { position: absolute; top: 10px; right: 20px; font-size: 30px; cursor: pointer; color: #aaa; }
+        
+        /* CART MODAL SPECIFIC */
+        .cart-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        .cart-table th, .cart-table td { padding: 10px; border-bottom: 1px solid #eee; text-align: left; }
+        .cart-total-box { margin-top: 20px; padding-top: 10px; border-top: 2px solid #ddd; text-align: right; }
+        .submit-quote-btn { background: #25D366; color: white; border: none; padding: 12px 20px; border-radius: 5px; font-weight: bold; font-size: 1rem; cursor: pointer; margin-top: 10px; width: 100%; }
+
+        /* PRODUCT MODAL SPECIFIC */
+        .prod-content { display: flex; overflow: hidden; }
+        .prod-img-box { flex: 1; background: #f0f0f0; min-height: 300px; }
+        .prod-img-box img { width: 100%; height: 100%; object-fit: cover; }
+        .prod-details { flex: 1; padding: 30px; text-align: left; }
+        .prod-close { position: absolute; top: 15px; right: 20px; font-size: 30px; cursor: pointer; color: #333; z-index: 10; background: white; width: 40px; height: 40px; border-radius: 50%; text-align: center; line-height: 40px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .prod-meta-box { background: #f9f9f9; padding: 15px; border-radius: 10px; border-left: 4px solid var(--accent); margin-bottom: 20px; }
+
+        /* BLOG MODAL SPECIFIC */
+        .blog-content-box { padding: 40px; text-align: left; }
+        .blog-full-title { color: var(--primary); margin-bottom: 20px; }
+        .blog-text { color: #444; line-height: 1.8; font-size: 1.05rem; }
+        .blog-text h4 { color: #004d40; margin-top: 20px; font-size: 1.2rem; }
+        
+        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @media(max-width:768px){ .prod-content { flex-direction: column; } .prod-img-box { height: 250px; flex: none; } }
+
+        /* DELIVERY SECTION */
+        .delivery-section { background: #002244; color: white; padding: 60px 20px; text-align: center; margin-top: 40px; }
+        .delivery-grid { max-width: 1200px; margin: 40px auto 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .delivery-card { background: rgba(255,255,255,0.1); padding: 30px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.2); transition: transform 0.3s; }
+        .delivery-card:hover { transform: translateY(-10px); background: rgba(255,255,255,0.2); }
+        .delivery-icon { font-size: 3rem; margin-bottom: 15px; display: block; }
+        
+        /* PAYMENT SECTION */
+        .payment-section { background: white; padding: 40px 20px; text-align: center; margin-bottom: 40px; }
+        .payment-container { max-width: 800px; margin: 0 auto; border: 2px dashed #ddd; border-radius: 15px; padding: 30px; background: #fff; }
+        .payment-details-box { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; text-align: left; margin-top: 20px; }
+        .pay-block { background: #f4f8fb; padding: 20px; border-radius: 10px; border-left: 5px solid var(--primary); }
+        
+        /* TENDER & CONSULTATION */
+        .tender-section { background: linear-gradient(45deg, #001f3f, #003366); color: white; padding: 60px 20px; text-align: center; }
+        .tender-box { max-width: 800px; margin: 0 auto; border: 2px solid #ffd700; padding: 30px; border-radius: 15px; background: rgba(255,255,255,0.05); }
+        .btn-tender { background: #ffd700; color: #000; padding: 12px 30px; border-radius: 50px; font-weight: bold; display: inline-block; margin-top: 20px; }
+        
+        /* CONSULTATION */
+        .consult-section { background: linear-gradient(135deg, #2e7d32, #43a047); color: white; padding: 40px 20px; text-align: center; margin-top: 20px; }
+        .consult-box { max-width: 800px; margin: 0 auto; }
+        .consult-btn { background: white; color: #2e7d32; padding: 10px 25px; border-radius: 50px; font-weight: bold; display: inline-block; margin-top: 15px; text-decoration: none; }
+        
+        /* MARKET LINKAGE */
+        .market-section { background: #fff3e0; padding: 30px 20px; border-bottom: 5px solid #ff9800; text-align: center; }
+        .market-container { max-width: 1000px; margin: 0 auto; }
+        
+        /* SCROLLABLE TABLE */
+        .rate-table-container { 
+            max-height: 350px; 
+            overflow-y: auto; 
+            overflow-x: auto; 
+            margin-top: 20px; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
+            border-radius: 10px; 
+            background: white; 
+            border: 1px solid #ddd;
+        }
+        .rate-table { width: 100%; border-collapse: collapse; min-width: 800px; }
+        .rate-table th { background: #e65100; color: white; padding: 12px; text-align: left; position: sticky; top: 0; z-index: 10; }
+        .rate-table td { padding: 10px 12px; border-bottom: 1px solid #ddd; text-align: left; color: #333; font-size: 0.9rem; }
+        .rate-table tr:nth-child(even) { background-color: #fff8e1; }
+        .rate-table tr:hover { background-color: #ffe0b2; }
+
+        /* GALLERY SECTION */
+        .gallery-section { padding: 40px 20px; background: white; text-align: center; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; max-width: 1200px; margin: 0 auto; }
+        .gallery-img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; transition: transform 0.3s; cursor: pointer; background: #ddd; }
+        .gallery-img:hover { transform: scale(1.03); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+
+        /* VIDEO SECTION */
+        .video-section { padding: 40px 20px; background: #f0f4f8; text-align: center; }
+        .video-wrapper { max-width: 800px; margin: 0 auto; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+
+        /* BLOG SECTION */
+        .blog-section { background: white; padding: 60px 20px; }
+        .blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
+        .blog-card { background: #f9f9f9; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); text-align: left; transition: transform 0.3s; }
+        .blog-card:hover { transform: translateY(-5px); }
+        .blog-img { height: 180px; width: 100%; background: #ddd; object-fit: cover; }
+        .blog-content { padding: 20px; }
+        .blog-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; color: var(--primary); }
+        .blog-desc { font-size: 0.9rem; color: #666; margin-bottom: 15px; }
+        .read-more-btn { color: var(--primary); font-weight: bold; font-size: 0.9rem; text-transform: uppercase; cursor: pointer; text-decoration: underline; }
+
+        /* DISTRIBUTOR SECTION */
+        .distributor-section { background: #004d40; color: white; padding: 60px 20px; text-align: center; margin-top: 40px; }
+        .dist-container { max-width: 900px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; align-items: center; }
+        .dist-content { flex: 1 1 300px; text-align: left; }
+        .dist-offer { flex: 1 1 300px; background: rgba(255,255,255,0.1); padding: 30px; border-radius: 15px; border: 2px dashed #4db6ac; }
+        .dist-list { list-style: none; margin-top: 15px; }
+        .dist-list li { margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+        .dist-list li::before { content: '📍'; }
+
+        /* MAP SECTION - DEEP OCEAN THEME */
+        .map-section { 
+            background: linear-gradient(to right, #0f2027, #203a43, #2c5364); 
+            color: white; 
+            padding: 60px 20px; 
+            text-align: center; 
+            position: relative; 
+        }
+        .map-section .section-title { color: white; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+        .map-container { max-width: 1000px; margin: 20px auto; border-radius: 15px; overflow: hidden; box-shadow: 0 15px 40px rgba(0,0,0,0.3); height: 400px; border: 5px solid rgba(255,255,255,0.1); }
+        iframe { width: 100%; height: 100%; border: 0; }
+
+        /* FOOTER - VISION BOLD / WATER THEME */
+        footer { 
+            background: linear-gradient(135deg, #021B79, #0575E6); 
+            color: white; 
+            padding: 60px 20px 30px; 
+            text-align: center; 
+            border-top: 5px solid #00a8cc; 
+        }
+        .social-btn { color: white; padding: 10px 20px; border-radius: 50px; font-weight: bold; display: inline-block; margin: 5px; text-decoration: none; font-size: 0.9rem; }
+        .btn-fb { background: rgba(255,255,255,0.1); border: 1px solid white; } 
+        .btn-fb:hover { background: var(--fb); border-color: var(--fb); }
+        
+        .float-wa { position: fixed; bottom: 30px; right: 30px; background: var(--wa); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 10px 20px rgba(0,0,0,0.2); z-index: 100; cursor: pointer; }
+
+        /* INVOICE PRINT STYLE */
+        #invoice-template { display: none; }
+        @media print {
+            body * { visibility: hidden; }
+            #invoice-template, #invoice-template * { visibility: visible; }
+            #invoice-template { position: absolute; left: 0; top: 0; width: 100%; padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <div class="top-container">
+            <div class="top-info">
+                <span>📞 +91 7890002015</span>
+                <span>|</span>
+                <span>☎️ 033 31900755</span>
+                <span>|</span>
+                <div id="google_translate_element"></div>
+            </div>
+            <div class="top-social">
+                <a href="https://www.facebook.com/profile.php?id=100089790790484" target="_blank" class="header-social-btn header-fb">
+                    Facebook
+                </a>
+                <a href="https://youtube.com/@aquabluefishfarm?si=40Gl8y3Kg2XzKEZd" target="_blank" class="header-social-btn header-yt">
+                    YouTube
+                </a>
+                <a href="https://www.instagram.com/aqua_blue1999?igsh=eW9jMDVuNnNrNzhs" target="_blank" class="header-social-btn header-ig">
+                    Instagram
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="marquee-bar">
+        <marquee behavior="scroll" direction="left" scrollamount="6">🏆 Achievement: Previous year we delivered more than 5 CRORE Fish Seeds all over India! — Government Tenders Accepted — Premium Quality Guaranteed</marquee>
+    </div>
+
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo"><img src="logo.jpg" alt="Logo"> Aquablue</a>
+            <div class="nav-menu">
+                <a href="#home">Home</a>
+                <a href="#" style="color: var(--primary); font-weight: bold;" onclick="openSchemeModal()">Schemes 🏛️</a>
+                <a href="#" style="color: #2e7d32; font-weight: bold;" onclick="openSellModal()">Sell Fish 🐟</a>
+                <a href="#" onclick="openCatalogModal()">Products</a>
+                <a href="#calculator">Tools</a>
+                <a href="#gallery">Gallery</a>
+                <a href="#delivery">Delivery</a>
+                <div class="cart-icon-box" onclick="openCartModal()">
+                    <i class="fas fa-shopping-cart" style="font-size: 1.2rem; color: var(--primary);"></i>
+                    <span id="cartCount" class="cart-count">0</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div id="cartModal" class="modal">
+        <div class="modal-content" style="max-width: 600px; text-align: left;">
+            <span class="close-btn" onclick="closeCartModal()">×</span>
+            <h2 style="color: var(--primary); margin-bottom: 10px;">📝 Request Price Quotation</h2>
+            <p style="font-size:0.9rem; color:#666;">These are the items you are interested in. Submit the request to get the final price.</p>
+            
+            <table class="cart-table">
+                <thead><tr><th>Item</th><th>Size</th><th>Quantity</th><th>Action</th></tr></thead>
+                <tbody id="cartItemsBody">
+                    </tbody>
+            </table>
+            
+            <div id="cartEmptyMsg" style="text-align: center; padding: 20px; color: #888;">Your list is empty.</div>
+
+            <div class="cart-total-box" id="cartActions" style="display:none;">
+                <p><strong>Total Items:</strong> <span id="totalItems">0</span></p>
+                <button class="submit-quote-btn" onclick="submitQuoteRequest()">📩 Submit Request via WhatsApp</button>
+                <p style="font-size:0.8rem; margin-top:5px; color:#666;">(We will reply with the best rates shortly)</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="schemeModal" class="modal">
+        <div class="modal-content" style="max-width: 800px; text-align: left;">
+            <span class="close-btn" onclick="closeSchemeModal()">×</span>
+            <h2 style="color: var(--primary); text-align: center; margin-bottom: 10px;">🏛️ Government Schemes & Support</h2>
+            <p style="color: #555; text-align: center; margin-bottom: 30px;">Aquablue Fish Farm supports farmers in availing benefits from Central & State Government fishery schemes.</p>
+            
+            <div class="schemes-grid">
+                <div class="scheme-card">
+                    <h3 style="color: #0056b3;">PMMSY (Central)</h3>
+                    <p><strong>Pradhan Mantri Matsya Sampada Yojana</strong><br>Financial assistance for new ponds, biofloc units, and hatcheries.</p>
+                    <a href="https://pmmsy.dof.gov.in/" target="_blank" class="btn-scheme">Visit Official Website</a>
+                </div>
+
+                <div class="scheme-card">
+                    <h3 style="color: #2e7d32;">Swarna Matsya (WB)</h3>
+                    <p><strong>Swarna Matsya Sampad Yojana</strong><br>West Bengal State scheme for fishery development and farmer support.</p>
+                    <a href="https://wbfisheries.wb.gov.in/official/mypage.php?id=200" target="_blank" class="btn-scheme">Visit Official Website</a>
+                </div>
+
+                <div class="scheme-card">
+                    <h3 style="color: #6a1b9a;">NFDP Digital</h3>
+                    <p><strong>National Fisheries Digital Platform</strong><br>Register your farm online to get a digital ID and direct benefits.</p>
+                    <a href="https://nfdp.dof.gov.in/" target="_blank" class="btn-scheme" style="background: #6a1b9a;">Register Now</a>
+                </div>
+
+                <div class="scheme-card">
+                    <h3 style="color: #c62828;">KCC Loan</h3>
+                    <p><strong>Kisan Credit Card (Fisheries)</strong><br>Apply for low-interest loans for fish farming working capital.</p>
+                    <a href="https://www.jansamarth.in/kisan-credit-card-fisheries-scheme" target="_blank" class="btn-scheme" style="background: #c62828;">Apply Online</a>
+                </div>
+                
+                 <div class="scheme-card">
+                    <h3 style="color: #0277bd;">Matsya Jeebi Card</h3>
+                    <p><strong>For West Bengal Farmers</strong><br>State specific credit card scheme for fishermen.</p>
+                    <a href="https://mjcc-fisheries.wb.gov.in/" target="_blank" class="btn-scheme" style="background: #0277bd;">Apply in WB</a>
+                </div>
+
+                <div class="scheme-card">
+                    <h3 style="color: #e65100;">Government Tenders</h3>
+                    <p><strong>Bulk Supply for Projects</strong><br>We accept government tenders for Panchayat and Block level distribution.</p>
+                    <a href="https://wa.me/917890002015?text=I want to discuss a Govt Tender." class="btn-scheme" style="background: #e65100;">Contact for Tender</a>
+                </div>
+            </div>
+
+            <div style="margin-top: 30px; text-align: center;">
+                <button onclick="openStateModal()" class="btn-orange" style="background: #333; font-size: 1rem; border: none; cursor: pointer;">🇮🇳 View All State Fishery Departments</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="stateSchemesModal" class="modal" style="z-index: 3001;">
+        <div class="modal-content" style="max-width: 600px; text-align: left;">
+            <span class="close-btn" onclick="closeStateModal()">×</span>
+            <h2 style="color: var(--primary); margin-bottom: 5px;">🇮🇳 State Fishery Departments</h2>
+            <p style="font-size:0.9rem; color:#666; margin-bottom: 15px;">Click on your state to visit the official website for schemes.</p>
+            
+            <input type="text" id="stateSearch" placeholder="🔍 Search your state..." onkeyup="filterStates()" style="width:100%; padding:10px; margin-bottom:10px; border:1px solid #ddd; border-radius:5px;">
+
+            <div style="max-height: 400px; overflow-y: auto;">
+                <table class="state-table">
+                    <thead><tr><th>State / UT</th><th>Official Website</th></tr></thead>
+                    <tbody id="stateTableBody">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="sellModal" class="modal">
+        <div class="modal-content" style="max-width: 600px; text-align: left;">
+            <span class="close-btn" onclick="closeSellModal()">×</span>
+            <h2 style="color: #2e7d32; text-align: center;">🐟 Farmers' Surplus Exchange</h2>
+            <p style="color: #555; text-align: center; margin-bottom: 20px;">
+                Are you a farmer with unsold fish seeds? Don't worry!<br>
+                <strong>Submit your stock details here.</strong> We will help you connect with buyers in our network.
+            </p>
+            
+            <div class="sell-form">
+                <label>Fish Name (Which fish do you have?)</label>
+                <input type="text" id="s-name" class="sell-input" placeholder="e.g. Rohu, Catla, Pangas">
+                
+                <label>Line (Count per kg)</label>
+                <input type="text" id="s-size" class="sell-input" placeholder="e.g. 2000 line, 100 line">
+                
+                <label>Total Quantity Available</label>
+                <input type="text" id="s-qty" class="sell-input" placeholder="e.g. 5000 pieces, 200 kg">
+                
+                <label>Expected Price</label>
+                <input type="text" id="s-price" class="sell-input" placeholder="e.g. Rs 2 per piece">
+                
+                <label>Your Location (District & State)</label>
+                <input type="text" id="s-loc" class="sell-input" placeholder="e.g. Malda, West Bengal">
+                
+                <button onclick="submitSellRequest()" class="btn-sell">Submit Stock to Network 📤</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="catalogModal" class="modal">
+        <div class="modal-content" style="max-width: 1000px; text-align: center; height: 90vh; display: flex; flex-direction: column;">
+            <span class="close-btn" onclick="closeCatalogModal()">×</span>
+            <h2 style="color: var(--primary); margin-bottom: 10px;">Our Premium Fish Seed Catalog</h2>
+            
+            <div class="search-container" style="margin: 10px auto;">
+                <input type="text" id="searchInput" class="search-box" placeholder="🔍 Search fish (e.g. Seabass, Tangra)..." onkeyup="filterFish()" style="border: 1px solid #ccc;">
+            </div>
+
+            <div style="flex-grow: 1; overflow-y: auto; padding: 10px;">
+                <div class="product-grid" id="fishGrid">
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="productModal" class="prod-modal" onclick="closeProductModal(event)" style="z-index: 3002;">
+        <div class="prod-content">
+            <span class="prod-close" onclick="closeProductModal(null)">×</span>
+            <div class="prod-img-box">
+                <img id="p-img" src="" alt="Fish Image">
+            </div>
+            <div class="prod-details">
+                <span class="badge" id="p-type" style="margin-bottom: 10px;">Type</span>
+                <h2 id="p-name" style="color: var(--primary); font-size: 2rem; margin-bottom: 10px;">Fish Name</h2>
+                <p id="p-desc" style="color: #555; line-height: 1.8; margin-bottom: 20px;">Description goes here.</p>
+                
+                <div class="prod-meta-box">
+                    <p style="margin-bottom: 5px;">📈 <strong>Growth:</strong> <span id="p-growth">Loading...</span></p>
+                    <p style="margin-bottom: 5px;">💧 <strong>Water:</strong> <span id="p-water">Loading...</span></p>
+                    <p style="margin-bottom: 0;">🍽️ <strong>Feed:</strong> <span id="p-feed">Loading...</span></p>
+                </div>
+
+                <div style="background: #e0f7fa; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+                    <strong>✅ Stock Available:</strong> Spawn, Fry, Fingerling<br>
+                    <strong>🚚 Delivery:</strong> All India Available
+                </div>
+
+                <a id="p-link" href="#" class="btn-wa" style="text-align: center; display: inline-block; width: 100%;">💬 Order on WhatsApp</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="blogModal" class="blog-modal" onclick="closeBlogModal(event)">
+        <div class="blog-content-box">
+            <span class="prod-close" onclick="closeBlogModal(null)">×</span>
+            <h2 id="b-title" class="blog-full-title">Blog Title</h2>
+            <div id="b-text" class="blog-text">Blog content...</div>
+        </div>
+    </div>
+
+    <div id="mainContent">
+        <div class="hero-container" id="home">
+            <div class="hero-slide slide-1 fade" style="display: flex;">
+                <h1>Welcome to <br>Aquablue Fish Farm</h1>
+                <h2>Trusted by 15,000+ Farmers Since 1999</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 20px;">India's Leading Supplier of Quality Fish Seeds</p>
+                <button onclick="openCatalogModal()" class="btn-orange">View Available Stock</button>
+            </div>
+            
+            <div class="hero-slide slide-2 fade">
+                <span class="hero-badge">🔥 28-Day Hormone Dose Complete</span>
+                <h1>Super Growth <br><span style="color: #ffd700;">Monosex Tilapia</span></h1>
+                <h2>Target: <strong style="color: white; border-bottom: 2px solid #ffd700;">500g in 4 Months</strong> Guaranteed*</h2>
+                <a href="https://wa.me/917890002015?text=I want to book Monosex Tilapia" class="btn-orange">Book Now</a>
+            </div>
+
+            <div class="hero-slide slide-3 fade">
+                <h1>Fast Delivery All Over India</h1>
+                <h2>🚂 By Train & ✈️ By Air Cargo</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 20px;">Safe Oxygen Packing | 100% Live Arrival Guarantee</p>
+                <a href="#delivery" class="btn-orange">Check Delivery Options</a>
+            </div>
+
+            <div class="slider-dots">
+                <span class="dot active" onclick="currentSlide(1)"></span>
+                <span class="dot" onclick="currentSlide(2)"></span>
+                <span class="dot" onclick="currentSlide(3)"></span>
+            </div>
+            
+            <div class="wave-bottom"><svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="wave-fill"></path></svg></div>
+        </div>
+
+        <div class="story-section">
+            <div class="story-container">
+                <div class="story-content">
+                    <h2>Our Story & Legacy</h2>
+                    <p>Established in 1999, <strong>Aquablue Fish Farm</strong> started with a vision to empower Indian aquaculture with high-quality, disease-free fish seeds. Under the leadership of <strong>Mr. Ashim Sarkar</strong>, we have grown from a small local hatchery in Naihati to a national supplier serving over 15,000 farmers across India.</p>
+                    <br>
+                    <p>We believe in quality over quantity. Our scientific breeding techniques ensure that every spawn you buy has high survival rates and fast growth potential. Join our family today and grow with confidence!</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-section">
+            <div class="stats-grid">
+                <div class="stat-item"><span class="stat-number">26+</span><span class="stat-label">Years Exp.</span></div>
+                <div class="stat-item"><span class="stat-number">15k+</span><span class="stat-label">Farmers</span></div>
+                <div class="stat-item"><span class="stat-number">100%</span><span class="stat-label">Disease Free</span></div>
+                <div class="stat-item"><span class="stat-number" style="color: #00ff00;">5 Cr+</span><span class="stat-label">Seeds Sold</span></div>
+            </div>
+        </div>
+
+        <div class="calc-section" id="calculator">
+            <div class="calc-box">
+                <h2 style="color:var(--primary);">🧮 Fish Stocking Calculator</h2>
+                <p>Calculate how many seeds you need for your pond.</p>
+                <input type="number" id="pondSize" class="calc-input" placeholder="Enter Pond Size (in Acre)">
+                <button class="btn-orange" style="width:100%; border:none; cursor:pointer;" onclick="calculateSeed()">Calculate</button>
+                <div id="calcResult" class="calc-result"></div>
+            </div>
+        </div>
+
+        <div class="product-banner" id="products">
+            <h2 class="section-title" style="color: #ffd700;">Our Premium Fish Seeds</h2>
+            <p style="font-size: 1.2rem; color: #e0f7fa; margin-bottom: 30px;">We have a wide range of 25+ Species including IMC, Catfish, and Exotic Fish.</p>
+            <button onclick="openCatalogModal()" class="btn-orange">📖 View Full Catalog & Prices</button>
+        </div>
+
+        <div class="gallery-section" id="gallery">
+            <h2 class="section-title">Our Farm Gallery</h2>
+            <div class="gallery-grid">
+                <img src="farm1.jpg" class="gallery-img" alt="Hatchery View">
+                <img src="farm2.jpg" class="gallery-img" alt="Brood Stock">
+                <img src="farm3.jpg" class="gallery-img" alt="Packing Process">
+                <img src="farm4.jpg" class="gallery-img" alt="Delivery">
+            </div>
+        </div>
+        
+        <div class="video-section">
+            <h2 class="section-title">Farm Video Tour</h2>
+            <div class="video-wrapper">
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/36ZzDXv9nz8" title="Aquablue Fish Farm Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="delivery-section" id="delivery">
+            <h2 style="font-size: 2.5rem;">Logistics & Delivery</h2>
+            <p style="opacity: 0.8;">Safe and Fast Transport to All States in India</p>
+            <div class="delivery-grid">
+                <div class="delivery-card">
+                    <span class="delivery-icon">🚛</span>
+                    <h3>By Road Transport</h3>
+                    <p><strong>Direct Farm Delivery</strong></p>
+                    <p>For bulk orders, we send via Oxygenated Pickup Van directly to your pond location. Available for nearby states.</p>
+                </div>
+                <div class="delivery-card">
+                    <span class="delivery-icon">🚆</span>
+                    <h3>By Train</h3>
+                    <p><strong>Railway Station Delivery</strong></p>
+                    <p>We book parcel vans in major trains. You can collect the oxygen-packed boxes from your nearest Railway Station.</p>
+                </div>
+                <div class="delivery-card">
+                    <span class="delivery-icon">✈️</span>
+                    <h3>By Air Cargo</h3>
+                    <p><strong>Airport Delivery</strong></p>
+                    <p>For urgent and long-distance orders, we ship via Air Cargo to your nearest Airport (Domestic & International).</p>
+                </div>
+            </div>
+        </div>
+        <div class="distributor-section">
+            <div class="dist-container">
+                <div class="dist-content">
+                    <h2>🤝 Become Our Distributor</h2>
+                    <p>Join 15+ distributors in Bihar, UP, Assam, WB, AP.</p>
+                </div>
+                <div class="dist-offer">
+                    <h3 style="color: #ffd700;">🚀 Zero Investment</h3>
+                    <a href="https://wa.me/917890002015" class="btn-tender" style="background: white; color: #004d40;">Apply Now</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="consult-section">
+            <div class="consult-box">
+                <h2>👨‍🏫 Expert Consultation</h2>
+                <p>Time: 11:00 AM - 6:00 PM</p>
+                <div style="display: flex; gap: 10px; justify-content: center; margin-top: 15px; flex-wrap: wrap;">
+                    <a href="tel:03331900755" class="consult-btn">📞 Audio Call</a>
+                    <a href="https://wa.me/917890002015?text=Hi Ashim da, I want to schedule a Video Call for consultation." class="consult-btn" style="color: #d32f2f;">📹 Request Video Call</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="payment-section">
+            <div class="payment-container">
+                <h2 class="section-title">Payment Details</h2>
+                <div class="payment-details-box">
+                    <div class="pay-block">
+                        <h3 style="color: #0056b3;">🏦 Bank Account</h3>
+                        <p><strong>Bank Name:</strong> Indian Bank</p>
+                        <p><strong>Account Name:</strong> Aquablue Fish Farm</p>
+                        <p><strong>Account Type:</strong> Current Account</p>
+                        <p><strong>Account No:</strong> 7747973118</p>
+                        <p><strong>IFSC Code:</strong> IDIB000D580</p>
+                    </div>
+                    <div class="pay-block">
+                        <h3 style="color: #25D366;">📱 UPI Payment</h3>
+                        <p>Google Pay / PhonePe / Paytm</p>
+                        <p style="font-size: 1.5rem; font-weight: bold; color: #333; margin-top: 10px;">7890002015</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="market-section">
+            <div class="market-container">
+                <h2 style="color: #e65100;">🐟 After-Harvest Market Support</h2>
+                <p>Compare Wholesale Rates (Updated: <span id="currentDate"></span>)</p>
+                
+                <div class="rate-table-container">
+                    <table class="rate-table">
+                        <thead>
+                            <tr>
+                                <th>State / Market</th>
+                                <th>Rohu (1kg+)</th>
+                                <th>Catla (1.5kg+)</th>
+                                <th>Pangas (1kg)</th>
+                                <th>Roopchand</th>
+                                <th>Tilapia</th>
+                                <th>Grass Carp</th>
+                                <th>Live Jeol</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>West Bengal (Naihati)</td>
+                                <td>₹160 - ₹180</td>
+                                <td>₹200 - ₹240</td>
+                                <td>₹105 - ₹115</td>
+                                <td>₹110 - ₹120</td>
+                                <td>₹120 - ₹130</td>
+                                <td>₹140 - ₹160</td>
+                                <td>₹400+</td>
+                            </tr>
+                            <tr>
+                                <td>Bihar (Patna)</td>
+                                <td>₹190 - ₹210</td>
+                                <td>₹230 - ₹260</td>
+                                <td>₹115 - ₹125</td>
+                                <td>₹120 - ₹130</td>
+                                <td>₹130 - ₹140</td>
+                                <td>₹160 - ₹180</td>
+                                <td>₹450+</td>
+                            </tr>
+                            <tr>
+                                <td>Assam (Guwahati)</td>
+                                <td>₹220 - ₹250</td>
+                                <td>₹280 - ₹320</td>
+                                <td>₹125 - ₹135</td>
+                                <td>₹130 - ₹145</td>
+                                <td>₹140 - ₹150</td>
+                                <td>₹180 - ₹200</td>
+                                <td>₹500+</td>
+                            </tr>
+                            <tr>
+                                <td>Uttar Pradesh</td>
+                                <td>₹180 - ₹200</td>
+                                <td>₹220 - ₹250</td>
+                                <td>₹110 - ₹120</td>
+                                <td>₹115 - ₹125</td>
+                                <td>₹125 - ₹135</td>
+                                <td>₹150 - ₹170</td>
+                                <td>₹420+</td>
+                            </tr>
+                            <tr>
+                                <td>Odisha</td>
+                                <td>₹170 - ₹190</td>
+                                <td>₹210 - ₹240</td>
+                                <td>₹110 - ₹115</td>
+                                <td>₹115 - ₹125</td>
+                                <td>₹120 - ₹130</td>
+                                <td>₹150 - ₹165</td>
+                                <td>₹410+</td>
+                            </tr>
+                            <tr>
+                                <td>Jharkhand</td>
+                                <td>₹180 - ₹200</td>
+                                <td>₹220 - ₹250</td>
+                                <td>₹115 - ₹125</td>
+                                <td>₹120 - ₹130</td>
+                                <td>₹125 - ₹135</td>
+                                <td>₹155 - ₹175</td>
+                                <td>₹430+</td>
+                            </tr>
+                            <tr>
+                                <td>Tripura (Agartala)</td>
+                                <td>₹230 - ₹260</td>
+                                <td>₹300 - ₹350</td>
+                                <td>₹130 - ₹140</td>
+                                <td>₹140 - ₹150</td>
+                                <td>₹150 - ₹160</td>
+                                <td>₹190 - ₹210</td>
+                                <td>₹550+</td>
+                            </tr>
+                            <tr>
+                                <td>Madhya Pradesh</td>
+                                <td>₹170 - ₹190</td>
+                                <td>₹200 - ₹230</td>
+                                <td>₹105 - ₹115</td>
+                                <td>₹110 - ₹120</td>
+                                <td>₹115 - ₹125</td>
+                                <td>₹145 - ₹165</td>
+                                <td>₹400+</td>
+                            </tr>
+                            <tr>
+                                <td>Punjab</td>
+                                <td>₹150 - ₹170</td>
+                                <td>₹190 - ₹220</td>
+                                <td>₹100 - ₹110</td>
+                                <td>₹105 - ₹115</td>
+                                <td>₹110 - ₹120</td>
+                                <td>₹140 - ₹160</td>
+                                <td>₹380+</td>
+                            </tr>
+                            <tr>
+                                <td>Chhattisgarh</td>
+                                <td>₹175 - ₹195</td>
+                                <td>₹215 - ₹245</td>
+                                <td>₹110 - ₹120</td>
+                                <td>₹115 - ₹125</td>
+                                <td>₹120 - ₹130</td>
+                                <td>₹150 - ₹170</td>
+                                <td>₹410+</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p style="font-size:0.8rem; color:#666; margin-top:10px; font-style:italic;">* Rates are approximate and subject to daily market fluctuation.</p>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="blog-section" id="blog">
+            <h2 class="section-title">Our Latest Top Blogs</h2>
+            <div class="blog-grid" id="blogGrid"></div>
+        </div>
+
+        <div class="map-section">
+            <h2 class="section-title">Visit Our Farm</h2>
+            <p>Naihati, West Bengal</p>
+            <div class="map-container">
+                <iframe 
+                    width="100%" 
+                    height="100%" 
+                    frameborder="0" 
+                    style="border:0" 
+                    src="https://www.google.com/maps/embed/v1/place8" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+            <a href="https://share.google/XrTUJyNltqP1pu6ny" target="_blank" class="btn-orange">Open in Google Maps App</a>
+        </div>
+    </div>
+
+    <footer>
+        <h3 style="font-size: 2rem; margin-bottom: 10px;">Aquablue Fish Farm</h3>
+        <h4 style="color: #ffd700; font-size: 1.2rem;">Founder: Ashim Sarkar</h4>
+        <p style="opacity: 0.8; margin-top: 10px;">📍 Naihati, West Bengal | 📞 +91 7890002015</p>
+        <div style="margin: 20px 0;">
+            <a href="#" class="social-btn btn-fb">Facebook</a>
+        </div>
+        <p style="font-size:0.8rem; opacity: 0.6;">© 2025 Aquablue Fish Farm.</p>
+    </footer>
+
+    <a href="https://wa.me/917890002015" class="float-wa">💬</a>
+
+    <script>
+        // FISH DATA WITH NEW DETAILS
+        const fishData = [
+            { name: "Pangasius (Pangas)", type: "Commercial", img: "pangas.jpg", desc: "Fastest growing commercial fish. Harvest in 6 months. High density farming possible.", bestSeller: true, highDemand: true, minOrder: "10 Box", growth: "1kg in 6 months", water: "Fresh/Pond", feed: "Floating Pellet" },
+            { name: "Roopchand", type: "Fast Growth", img: "roopchand.jpg", desc: "Freshwater Pomfret. Very fast growth and high demand in local markets.", bestSeller: true, highDemand: true, minOrder: "10 Box", growth: "800g in 5 months", water: "Freshwater", feed: "Floating/Sinking" },
+            { name: "Black Carp", type: "Snail Eater", img: "black_carp.jpg", desc: "Biological snail controller. Cracks snail shells. Essential for pond hygiene.", bestSeller: true, minOrder: "10 Box", growth: "1.5kg in 1 year", water: "Pond", feed: "Snails/Natural" },
+            { name: "Jayanti Rohu", type: "IMC", img: "rohu.jpg", desc: "Genetically improved Rohu. Grows 15-20% faster than normal Rohu. Disease resistant.", bestSeller: true, minOrder: "10 Box", growth: "1kg in 8-10 months", water: "Freshwater", feed: "Traditional/Pellet" }, 
+            { name: "Catla", type: "IMC", img: "catla.jpg", desc: "Surface feeder. Fastest growing among Indian Major Carps. Reaches 1kg+ in 6-8 months.", bestSeller: true, minOrder: "10 Box", growth: "1kg+ in 7 months", water: "Freshwater", feed: "Plankton/Floating" },
+            { name: "Mrigal", type: "Bottom Feeder", img: "mrigal.jpg", desc: "Bottom feeder IMC. Keeps pond bottom clean by eating waste.", bestSeller: true, minOrder: "10 Box", growth: "700g in 10 months", water: "Pond", feed: "Bottom waste" },
+            
+            { name: "Seabass (Bhetki)", type: "Premium", img: "seabass.jpg", desc: "High value predatory fish. Suitable for fresh and brackish water. High market demand in Kolkata.", minOrder: "10 Box", growth: "1kg in 10-12 months", water: "Brackish/Fresh", feed: "Live fish/Pellet" },
+            { name: "Murrel (Shoal)", type: "Snakehead", img: "murrel.jpg", desc: "Hardy fish, air breather. Very high price in local markets. Best for low oxygen ponds.", minOrder: "10 Box", growth: "500g in 8 months", water: "Marshy/Pond", feed: "Carnivorous" },
+            { name: "Desi Tangra", type: "Catfish", img: "desi_tangra.jpg", desc: "Tasty sweet water catfish. Small size but high value. Excellent for biofloc.", minOrder: "10 Box", growth: "50g in 4 months", water: "Fresh/Biofloc", feed: "High Protein" },
+            { name: "Singhi", type: "Medicinal", img: "singhi.jpg", desc: "Iron rich medicinal fish. High demand in live fish market. Good for small tanks.", minOrder: "10 Box", growth: "100g in 5 months", water: "Biofloc/Tank", feed: "High Protein" },
+            { name: "Vietnamese Koi", type: "High Value", img: "viet_koi.jpg", desc: "Air breathing fish. Can be farmed in very high density. Harvesting in 3-4 months.", minOrder: "10 Box", growth: "200g in 3 months", water: "Biofloc/High density", feed: "Floating 32%" },
+            { name: "Monosex Tilapia", type: "Biofloc", img: "tilapia.jpg", desc: "28-Day Hormone Dosed. 99% Male. 500g in 4 months guaranteed with proper feed.", minOrder: "10 Box", growth: "500g in 4 months", water: "Any/Biofloc", feed: "Floating" },
+            { name: "Scampi", type: "Prawn", img: "scampi.jpg", desc: "Giant freshwater prawn. Export quality. Polyculture with carp is possible.", minOrder: "10 Box", growth: "50g in 6 months", water: "Freshwater", feed: "Prawn Feed" },
+            { name: "Chital", type: "Specialty", img: "chital.jpg", desc: "Clown Knifefish. Sport and food fish. Very popular in Bengal cuisine.", minOrder: "10 Box", growth: "1.5kg in 1 year", water: "Big Pond", feed: "Live Fish" },
+            { name: "Colour Fish", type: "Aquarium", img: "colour_fish.jpg", desc: "Mixed ornamental fishes for aquarium shops. Molly, Guppy, Goldfish available.", minOrder: "10 Box", growth: "Varies", water: "Tank", feed: "Colour Feed" },
+            { name: "Pabda", type: "Butter Catfish", img: "pabda.jpg", desc: "Very popular tasty fish. Soft bones. High market rate in Bengal and Tripura.", minOrder: "10 Box", growth: "40-50g in 5 months", water: "Biofloc/Pond", feed: "Sinking" },
+            { name: "Gulsha Tangra", type: "Sweet Water", img: "gulsha.jpg", desc: "Oily and tasty fish. Good for small ponds. Compatible with carp farming.", minOrder: "10 Box", growth: "40g in 6 months", water: "Freshwater", feed: "Sinking" },
+            { name: "Grass Carp", type: "Weed Eater", img: "grass_carp.jpg", desc: "Eats aquatic weeds. Reduces feed cost significantly.", minOrder: "10 Box", growth: "1kg+ in 6 months", water: "Pond", feed: "Grass/Vegetation" },
+            { name: "Silver Carp", type: "Exotic", img: "silver_carp.jpg", desc: "Filter feeder. Cleans water by eating algae. Fast growth.", minOrder: "10 Box", growth: "1kg in 6 months", water: "Pond", feed: "Plankton" },
+            { name: "Common Carp", type: "Golden", img: "common_carp.jpg", desc: "Omnivorous. Eats almost anything. Very hardy and survives in tough conditions.", minOrder: "10 Box", growth: "800g in 6 months", water: "Any", feed: "Bottom feed" },
+            { name: "Desi Magur", type: "Medicinal", img: "magur.jpg", desc: "Original Desi Magur. High protein. Very expensive and in high demand for patients.", minOrder: "10 Box", growth: "150g in 8 months", water: "Marshy", feed: "Protein rich" },
+            
+            { name: "Bata", type: "Table Fish", img: "bata.jpg", desc: "Very tasty indigenous fish. High demand in Bengal markets. Silver body.", minOrder: "10 Box", growth: "100g in 6 months", water: "Pond", feed: "Natural" },
+            { name: "Japani Puti (Sarputi)", type: "Olive Barb", img: "sarputi.jpg", desc: "Fast growing, beautiful fish. Good for medium duration culture.", minOrder: "10 Box", growth: "200g in 5 months", water: "Pond", feed: "Vegetation" },
+            { name: "Amur Carp", type: "Improved Carp", img: "amur_carp.jpg", desc: "Hungarian strain of Common Carp. Better body shape and faster growth than normal Common Carp.", minOrder: "10 Box", growth: "1kg in 6-7 months", water: "Pond", feed: "Bottom feed" }
+        ];
+
+        // BLOG DATA
+        const blogData = [
+            {
+                title: "Top 5 Profitable Fish Species for 2026 Farming Season",
+                img: "profit_fish.jpg",
+                desc: "Discover the best fish species to farm this upcoming season for maximum profit and growth.",
+                content: `
+                    <h4>1. Jayanti Rohu</h4>
+                    <p>Genetically improved Rohu grows 15-20% faster than normal Rohu. It is highly disease-resistant and perfect for farmers in West Bengal, Bihar, and Odisha.</p>
+                    <h4>2. Amur Common Carp</h4>
+                    <p>Unlike normal Common Carp, the Amur breed does not breed easily in ponds, channeling energy into body growth. It has a better body shape and higher market value.</p>
+                    <h4>3. Vietnamese Koi</h4>
+                    <p>For high-density farming (Biofloc or small ponds), Vietnamese Koi is unbeatable. It can be harvested in just 3-4 months.</p>
+                    <h4>4. Pangasius (Basa)</h4>
+                    <p>The commercial king. Pangas grows extremely fast and is the staple for large-scale farming.</p>
+                    <h4>5. Monosex Tilapia</h4>
+                    <p>Ideal for Biofloc. Uniform growth and high survival rates make it a safe bet for new farmers.</p>
+                    <br>
+                    <p><strong>📢 Booking Open for 2026 Season! Call us to reserve your seeds now.</strong></p>
+                `
+            },
+            {
+                title: "Pond Preparation Guide",
+                img: "pond_prep.jpg",
+                desc: "Learn how to properly prepare your pond before stocking seeds to ensure maximum survival and growth.",
+                content: `<h4>Step 1: Drying and Cleaning</h4><p>If possible, pump out all the water and let the pond bottom crack in the sunlight. This kills harmful bacteria and digests poisonous gases. If you cannot dry it, remove predatory fish (like Chital/Shoal) using Mahua oil cake.</p>
+                          <h4>Step 2: Liming (The Most Important Step)</h4><p>Lime (Chuna) balances the pH of the water and keeps the pond bottom healthy. Dose: 200kg - 300kg per acre. Apply it to the bottom soil (if dry) or mix with water and spread it all over the pond. Wait for 5 days.</p>
+                          <h4>Step 3: Fertilization</h4><p>Fish seeds need zooplankton (natural food) to survive the first few days. Mix Raw Cow Dung (1000kg/acre) + Single Super Phosphate (SSP) + Urea. Leave the pond for 5-7 days until the water turns a light brownish-green color.</p>`
+            },
+            {
+                title: "Winter Care for Fish",
+                img: "winter_care.jpg",
+                desc: "Essential tips to protect your Pangasius and Singhi fish from diseases during the cold season.",
+                content: `<h4>1. Manage Feeding Smartly</h4><p>Fish digestion is very weak in winter. If the temperature drops below 15°C, stop feeding completely. On sunny days, feed only 10-20% of the usual amount during the afternoon.</p>
+                          <h4>2. Maintain Water Depth</h4><p>Keep water depth at least 6 feet. The bottom layer of water stays warmer than the surface. Shallow ponds get too cold too fast.</p>
+                          <h4>3. Disease Prevention</h4><p>Apply Cifax or a mixture of Lime and Turmeric (Haldi) once a month to prevent ulcerative diseases. If you see red spots on fish, contact us immediately for consultation.</p>`
+            },
+            {
+                title: "High Density Farming",
+                img: "high_density.jpg",
+                desc: "How to use Biofloc and modern aeration techniques to grow more fish in smaller ponds.",
+                content: `<h4>Best Species for High Density</h4><p>Pangasius, Vietnamese Koi, Monosex Tilapia, and Singhi/Magur are the best choices for high density farming.</p>
+                          <h4>The Golden Rules</h4><p>1. <strong>Aeration is Mandatory:</strong> You cannot do high density without paddle wheel aerators or blowers.<br>2. <strong>High Protein Feed:</strong> Use floating feed with 28-32% protein content for fast growth.<br>3. <strong>Probiotics:</strong> Use soil and water probiotics regularly to digest the heavy waste produced by so many fish.</p>
+                          <h4>Why Choose Aquablue?</h4><p>High density farming puts stress on fish. You need strong, genetically superior seeds that can handle this stress. Our seeds are bred for survival.</p>`
+            }
+        ];
+
+        // GLOBAL VARIABLES
+        let cart = []; // Stores objects {name, size, qty}
+
+        // AUTO DATE UPDATE
+        const dateSpan = document.getElementById('currentDate');
+        if(dateSpan) {
+            const today = new Date();
+            dateSpan.innerText = today.toLocaleDateString('en-GB'); // DD/MM/YYYY
+        }
+
+        // CALCULATOR FUNCTION
+        function calculateSeed() {
+            const acre = parseFloat(document.getElementById('pondSize').value); // Changed variable name
+            const resultBox = document.getElementById('calcResult');
+            
+            if(!acre || acre <= 0) { // Changed check
+                resultBox.style.display = 'block';
+                resultBox.style.color = 'red';
+                resultBox.innerText = "Please enter a valid pond size.";
+                return;
+            }
+
+            // Calculation Logic (Approximate standard)
+            // 1 Acre = 100 Decimals.
+            // Previous logic: 150-200 per Decimal.
+            // New logic: 15000-20000 per Acre.
+            const minStock = acre * 15000;
+            const maxStock = acre * 20000;
+
+            resultBox.style.display = 'block';
+            resultBox.style.color = '#2e7d32';
+            resultBox.innerHTML = `✅ For ${acre} Acre Pond:<br> Recommended Stock: <strong>${minStock.toLocaleString()} - ${maxStock.toLocaleString()} Fingerlings</strong><br>(Mixed Carp Farming)`;
+        }
+
+        // SELL FISH FUNCTION
+        function submitSellRequest() {
+            const name = document.getElementById('s-name').value;
+            const size = document.getElementById('s-size').value;
+            const qty = document.getElementById('s-qty').value;
+            const price = document.getElementById('s-price').value;
+            const loc = document.getElementById('s-loc').value;
+
+            if(!name || !qty || !loc) {
+                alert("Please fill at least Name, Quantity and Location.");
+                return;
+            }
+
+            // Create WhatsApp Link
+            const text = `Hello Aquablue, I want to sell unsold fish stock:%0A%0A🐟 *Fish:* ${name}%0A📏 *Line/Size:* ${size}%0A⚖️ *Qty:* ${qty}%0A💰 *Price:* ${price}%0A📍 *Location:* ${loc}%0A%0APlease help me find a buyer.`;
+            
+            window.open(`https://wa.me/917890002015?text=${text}`, '_blank');
+        }
+
+        // SELL MODAL LOGIC
+        function openSellModal() {
+            document.getElementById('sellModal').style.display = 'flex';
+        }
+
+        function closeSellModal() {
+            document.getElementById('sellModal').style.display = 'none';
+        }
+
+        // SCHEME MODAL LOGIC
+        function openSchemeModal() {
+            document.getElementById('schemeModal').style.display = 'flex';
+        }
+
+        function closeSchemeModal() {
+            document.getElementById('schemeModal').style.display = 'none';
+        }
+
+        // CATALOG MODAL LOGIC (FIXED)
+        function openCatalogModal() {
+            document.getElementById('catalogModal').style.display = 'flex';
+            // Render grid inside modal if empty
+            if(document.getElementById('fishGrid').innerHTML === "") {
+                renderFish(fishData);
+            }
+        }
+
+        function closeCatalogModal() {
+            document.getElementById('catalogModal').style.display = 'none';
+        }
+
+        // STATE MODAL LOGIC (FIXED LINKS FOR 2025)
+        const stateData = [
+            { state: "Andhra Pradesh", url: "https://fisheries.ap.gov.in/" },
+            { state: "Assam", url: "https://fisheries.assam.gov.in/" },
+            { state: "Bihar", url: "https://state.bihar.gov.in/animal/BenefitScheme.html" }, 
+            { state: "Chhattisgarh", url: "https://agriportal.cg.nic.in/fisheries/" },
+            { state: "Jharkhand", url: "https://jsfd.jharkhand.gov.in/" }, 
+            { state: "Madhya Pradesh", url: "http://www.mpfisheries.gov.in/" },
+            { state: "Odisha", url: "http://www.fardodisha.gov.in/" },
+            { state: "Uttar Pradesh", url: "http://fisheries.up.gov.in/" },
+            { state: "West Bengal", url: "https://wbfisheries.wb.gov.in/" },
+            { state: "Gujarat", url: "https://fisheries.gujarat.gov.in/" },
+            { state: "Maharashtra", url: "https://fisheries.maharashtra.gov.in/" },
+            { state: "Punjab", url: "https://fisheries.punjab.gov.in/" }, 
+            { state: "Haryana", url: "https://fisheries.haryana.gov.in/" }, 
+            { state: "Tamil Nadu", url: "https://www.fisheries.tn.gov.in/" },
+            { state: "Karnataka", url: "https://fisheries.karnataka.gov.in/" }
+        ];
+
+        function openStateModal() {
+            const tbody = document.getElementById('stateTableBody');
+            tbody.innerHTML = "";
+            stateData.forEach(st => {
+                tbody.innerHTML += `<tr><td>${st.state}</td><td><a href="${st.url}" target="_blank" class="state-link">Visit Website ↗</a></td></tr>`;
+            });
+            document.getElementById('stateSchemesModal').style.display = 'flex';
+        }
+
+        function closeStateModal() {
+            document.getElementById('stateSchemesModal').style.display = 'none';
+        }
+
+        function filterStates() {
+            const input = document.getElementById('stateSearch').value.toLowerCase();
+            const filtered = stateData.filter(s => s.state.toLowerCase().includes(input));
+            const tbody = document.getElementById('stateTableBody');
+            tbody.innerHTML = "";
+            filtered.forEach(st => {
+                tbody.innerHTML += `<tr><td>${st.state}</td><td><a href="${st.url}" target="_blank" class="state-link">Visit Website ↗</a></td></tr>`;
+            });
+        }
+
+        // GOOGLE TRANSLATE INIT
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'en,bn,hi', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+        }
+
+        // --- CART SYSTEM LOGIC ---
+        function addToCart(index) {
+            const card = document.querySelectorAll('.card')[index];
+            const size = card.querySelector('.size-select').value;
+            const qty = card.querySelector('.qty-input').value;
+            const name = fishData[index].name;
+
+            if(!qty || qty <= 0) {
+                alert("Please enter a valid quantity.");
+                return;
+            }
+
+            // Add to Cart Array
+            cart.push({name: name, size: size, qty: qty});
+            updateCartUI();
+            alert("Added to Quote List!");
+        }
+
+        function updateCartUI() {
+            document.getElementById('cartCount').innerText = cart.length;
+        }
+
+        function openCartModal() {
+            const tbody = document.getElementById('cartItemsBody');
+            tbody.innerHTML = "";
+            
+            if(cart.length === 0) {
+                document.getElementById('cartEmptyMsg').style.display = 'block';
+                document.getElementById('cartActions').style.display = 'none';
+            } else {
+                document.getElementById('cartEmptyMsg').style.display = 'none';
+                document.getElementById('cartActions').style.display = 'block';
+                document.getElementById('totalItems').innerText = cart.length;
+
+                cart.forEach((item, index) => {
+                    tbody.innerHTML += `
+                        <tr>
+                            <td>${item.name}</td>
+                            <td>${item.size}</td>
+                            <td>${item.qty}</td>
+                            <td><button onclick="removeFromCart(${index})" style="color:red; background:none; border:none; cursor:pointer;">❌</button></td>
+                        </tr>
+                    `;
+                });
+            }
+            document.getElementById('cartModal').style.display = 'flex';
+        }
+
+        function closeCartModal() {
+            document.getElementById('cartModal').style.display = 'none';
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1); // Remove item
+            openCartModal(); // Refresh modal
+            updateCartUI(); // Refresh count
+        }
+
+        function submitQuoteRequest() {
+            // 1. Format Message
+            let msg = "Hello Aquablue, I need a price quote for:%0A";
+            cart.forEach(item => {
+                msg += `- ${item.qty} ${item.name} (${item.size})%0A`;
+            });
+            msg += "%0APlease provide best rates.";
+
+            // 2. Clear Cart
+            cart = [];
+            updateCartUI();
+            closeCartModal();
+
+            // 3. Open WhatsApp
+            window.open(`https://wa.me/917890002015?text=${msg}`, '_blank');
+        }
+
+        // PRODUCT MODAL FUNCTIONS
+        function openProductModal(index) {
+            const fish = fishData[index];
+            const fallback = `https://via.placeholder.com/400x300/0056b3/ffffff?text=${encodeURIComponent(fish.name)}`;
+            
+            document.getElementById('p-img').src = fish.img ? fish.img : fallback;
+            document.getElementById('p-name').innerText = fish.name;
+            document.getElementById('p-type').innerText = fish.type;
+            document.getElementById('p-desc').innerText = fish.desc;
+            
+            // Set dynamic technical data
+            document.getElementById('p-growth').innerText = fish.growth || "Standard for species";
+            document.getElementById('p-water').innerText = fish.water || "Freshwater Pond";
+            document.getElementById('p-feed').innerText = fish.feed || "Standard Feed";
+
+            document.getElementById('p-link').href = `https://wa.me/917890002015?text=Hi Ashim da, I want details about ${fish.name}`;
+            
+            document.getElementById('productModal').style.display = 'flex';
+        }
+
+        function closeProductModal(e) {
+            if(e === null || e.target.id === 'productModal') {
+                document.getElementById('productModal').style.display = 'none';
+            }
+        }
+
+        // BLOG MODAL FUNCTIONS
+        function openBlog(index) {
+            const blog = blogData[index];
+            document.getElementById('b-title').innerText = blog.title;
+            document.getElementById('b-text').innerHTML = blog.content;
+            document.getElementById('blogModal').style.display = 'flex';
+        }
+
+        function closeBlogModal(e) {
+            if(e === null || e.target.id === 'blogModal') {
+                document.getElementById('blogModal').style.display = 'none';
+            }
+        }
+
+        // RENDER FISH (ENSURES LOADING AT END OF BODY)
+        const grid = document.getElementById('fishGrid');
+        function renderFish(data) {
+            if(!grid) return; // Safety check
+            grid.innerHTML = "";
+            data.forEach((fish, index) => {
+                const fallback = `https://via.placeholder.com/400x300/0056b3/ffffff?text=${encodeURIComponent(fish.name)}`;
+                const img = fish.img ? fish.img : fallback;
+                
+                // BADGES
+                let badgeHTML = `<span class="badge">${fish.type}</span>`;
+                if(fish.bestSeller) { badgeHTML += `<span class="badge-best">🔥 Best Seller</span>`; }
+                if(fish.highDemand) { badgeHTML += `<span class="badge-demand">⚡ High Demand</span>`; }
+
+                grid.innerHTML += `
+                    <div class="card">
+                        ${badgeHTML}
+                        <img src="${img}" onerror="this.src='${fallback}'" alt="${fish.name}" onclick="openProductModal(${index})">
+                        <div class="card-body">
+                            <h3>${fish.name}</h3>
+                            
+                            <div class="prod-select-box">
+                                <select class="size-select">
+                                    <option value="Spawn">Spawn</option>
+                                    <option value="Fry" selected>Fry</option>
+                                    <option value="Fingerling">Fingerling</option>
+                                </select>
+                                <input type="number" class="qty-input" placeholder="Quantity">
+                            </div>
+                            <button onclick="addToCart(${index})" class="add-btn">Add & Ask Price 📝</button>
+
+                            <button onclick="openProductModal(${index})" class="btn-view">View Details</button>
+                        </div>
+                    </div>`;
+            });
+        }
+        
+        // RENDER BLOGS
+        const blogGrid = document.getElementById('blogGrid');
+        function renderBlogs() {
+            if(!blogGrid) return;
+            blogGrid.innerHTML = ""; // Clear existing
+            blogData.forEach((blog, index) => {
+                const fallback = `https://via.placeholder.com/300x180/0056b3/ffffff?text=${encodeURIComponent(blog.title)}`;
+                const img = blog.img ? blog.img : fallback;
+                
+                blogGrid.innerHTML += `
+                    <div class="blog-card">
+                        <img src="${img}" class="blog-img" onerror="this.src='${fallback}'" alt="${blog.title}">
+                        <div class="blog-content">
+                            <h3 class="blog-title">${blog.title}</h3>
+                            <p class="blog-desc">${blog.desc}</p>
+                            <a onclick="openBlog(${index})" class="read-more-btn">Read More →</a>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function filterFish() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            renderFish(fishData.filter(f => f.name.toLowerCase().includes(input)));
+        }
+
+        // HERO SLIDER LOGIC
+        let slideIndex = 0;
+        function showSlides() {
+            let slides = document.getElementsByClassName("hero-slide");
+            let dots = document.getElementsByClassName("dot");
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";  
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) {slideIndex = 1}    
+            slides[slideIndex-1].style.display = "flex";  
+            dots[slideIndex-1].className += " active";
+            setTimeout(showSlides, 5000); // Change image every 5 seconds
+        }
+
+        function currentSlide(n) {
+            slideIndex = n - 1; // Adjust because showSlides increments immediately
+            showSlides();
+        }
+
+        // INITIALIZE
+        showSlides(); // Start slider
+        // RENDER ON LOAD FOR NON-MODAL USE (IF ANY) - BUT HERE IT'S IN MODAL
+        renderFish(fishData); 
+        renderBlogs();
+    </script>
+    
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+</html>
